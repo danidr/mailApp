@@ -20,18 +20,17 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     EmailRepository emailRepository;
 
-
     @Override
     public MessageResponse createEmail(EmailRequest emailRequest) {
 
         Email newEmail = new Email();
 
-        newEmail.setDate(new Date());
-        newEmail.setFrom(emailRequest.getFrom());
-        newEmail.setTo(emailRequest.getTo());
-        newEmail.setCc(emailRequest.getCc());
-        newEmail.setBody(emailRequest.getBody());
-        newEmail.setEstate(emailRequest.getEstate());
+        newEmail.setMailDate(new Date());
+        newEmail.setMailFrom(emailRequest.getFrom());
+        newEmail.setMailTo(emailRequest.getTo());
+        newEmail.setMailCc(emailRequest.getCc());
+        newEmail.setMailBody(emailRequest.getBody());
+        newEmail.setMailEstate(emailRequest.getEstate());
 
         emailRepository.save(newEmail);
 
@@ -43,18 +42,18 @@ public class EmailServiceImpl implements EmailService {
 
         Optional<Email> email = emailRepository.findById(emailId);
 
-        if (email.isEmpty() || !email.get().getEstate().equals(Estate.DRAFT)){
+        if (email.isEmpty() || !email.get().getMailEstate().equals(Estate.DRAFT)){
 
             throw new ResourceNotFoundException("Email", "id", emailId);
 
         } else {
 
-            email.get().setDate(new Date());
-            email.get().setFrom(emailRequest.getFrom());
-            email.get().setTo(emailRequest.getTo());
-            email.get().setCc(emailRequest.getCc());
-            email.get().setBody(emailRequest.getBody());
-            email.get().setEstate(emailRequest.getEstate());
+            email.get().setMailDate(new Date());
+            email.get().setMailFrom(emailRequest.getFrom());
+            email.get().setMailTo(emailRequest.getTo());
+            email.get().setMailCc(emailRequest.getCc());
+            email.get().setMailBody(emailRequest.getBody());
+            email.get().setMailEstate(emailRequest.getEstate());
 
             emailRepository.save(email.get());
 
@@ -75,13 +74,13 @@ public class EmailServiceImpl implements EmailService {
 
         Optional<Email> email = emailRepository.findById(emailId);
 
-        if (email.isEmpty() || email.get().getEstate().equals(Estate.DELETED)){
+        if (email.isEmpty() || email.get().getMailEstate().equals(Estate.DELETED)){
 
             throw new ResourceNotFoundException("Email", "id", emailId);
 
         } else {
 
-            email.get().setEstate(Estate.DELETED);
+            email.get().setMailEstate(Estate.DELETED);
 
             emailRepository.save(email.get());
         }
