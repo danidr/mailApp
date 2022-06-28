@@ -21,4 +21,6 @@ public interface EmailService {
     Email getSingleEmail(Integer emailId);
 
     List<Email> getAllEmails();
+
+    Integer setEmailAsSpam(String mailSpam);
 }

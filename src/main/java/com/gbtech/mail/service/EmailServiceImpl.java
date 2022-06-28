@@ -95,4 +95,26 @@ public class EmailServiceImpl implements EmailService {
     public List<Email> getAllEmails() {
         return emailRepository.findAll();
     }
+
+    @Override
+    public Integer setEmailAsSpam(String mailSpam) {
+
+        Integer counter = 0;
+
+        List<Email> spamList = emailRepository.findMailByFromEmail(mailSpam);
+
+        for (Email email:spamList) {
+
+            if (!email.getState().equals(State.SPAM)){
+
+                counter ++;
+
+                email.setState(State.SPAM);
+
+                emailRepository.save(email);
+            }
+        }
+
+        return counter;
+    }
 }

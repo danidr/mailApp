@@ -1,11 +1,14 @@
 package com.gbtech.mail.data.models;
 
+import org.springframework.data.jpa.repository.Query;
+
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Entity
 @Table(name = "mail")
+@NamedNativeQuery(name = "Email.findMailByFromEmail", query = "SELECT * FROM mail m WHERE m.mail_from LIKE ?", resultClass = Email.class)
 public class Email {
 
     @Id
