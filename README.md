@@ -19,7 +19,7 @@ To ADD a new email:
 ```bash
 http://localhost:8081/email/add
 ```
-
+- Example of a JSON sended TO the service: 
 ```json
 {
   "from": "dani@gbtech.com",
@@ -46,7 +46,7 @@ To RECOVER all existing e-mails:
 http://localhost:8081/email/all
 ```
 
-Example of a JSON sended to the service: 
+- Example of a JSON received FROM the service: 
 ```json
 {
 	"id": 1,
@@ -79,6 +79,7 @@ To UPDATE an existing email (using their ID):
 http://localhost:8081/email/update/{id}
 ```
 
+- Example of a JSON sended TO the service: 
 ```json
 {
   "from": "daniel@gbtech.com",
@@ -104,6 +105,7 @@ To FIND a existing email (using their ID):
 http://localhost:8081/email/find/{id}
 ```
 
+- Example of a JSON received FROM the service: 
 ```json
 {
 	"id": 48,
