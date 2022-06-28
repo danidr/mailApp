@@ -1,7 +1,5 @@
 package com.gbtech.mail.data.models;
 
-import org.springframework.data.jpa.repository.Query;
-
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
