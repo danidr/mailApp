@@ -2,6 +2,8 @@
 
 mailApp is a Java api REST application that exposes a REST API to execute CRUD operations. Replicate the behavior or an email server.
 
+This App have a ```ApplicationRunner``` which is able to continuously execute a SPAM mail marking process, this process checks the current time and at 10:00 it executes the marking.
+
 ## Run
 
 Use maven [mvn]
