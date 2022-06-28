@@ -1,7 +1,7 @@
 package com.gbtech.mail.service;
 
 import com.gbtech.mail.data.models.Email;
-import com.gbtech.mail.data.models.Estate;
+import com.gbtech.mail.data.models.State;
 import com.gbtech.mail.data.payloads.request.EmailRequest;
 import com.gbtech.mail.data.payloads.response.MessageResponse;
 import com.gbtech.mail.data.repository.EmailRepository;
@@ -25,12 +25,12 @@ public class EmailServiceImpl implements EmailService {
 
         Email newEmail = new Email();
 
-        newEmail.setMailDate(new Date());
-        newEmail.setMailFrom(emailRequest.getFrom());
-        newEmail.setMailTo(emailRequest.getTo());
-        newEmail.setMailCc(emailRequest.getCc());
-        newEmail.setMailBody(emailRequest.getBody());
-        newEmail.setMailEstate(emailRequest.getEstate());
+        newEmail.setDate(new Date());
+        newEmail.setFrom(emailRequest.getFrom());
+        newEmail.setTo(emailRequest.getTo());
+        newEmail.setCc(emailRequest.getCc());
+        newEmail.setBody(emailRequest.getBody());
+        newEmail.setState(emailRequest.getEstate());
 
         emailRepository.save(newEmail);
 
@@ -42,18 +42,18 @@ public class EmailServiceImpl implements EmailService {
 
         Optional<Email> email = emailRepository.findById(emailId);
 
-        if (email.isEmpty() || !email.get().getMailEstate().equals(Estate.DRAFT)){
+        if (email.isEmpty() || !email.get().getState().equals(State.DRAFT)){
 
             throw new ResourceNotFoundException("Email", "id", emailId);
 
         } else {
 
-            email.get().setMailDate(new Date());
-            email.get().setMailFrom(emailRequest.getFrom());
-            email.get().setMailTo(emailRequest.getTo());
-            email.get().setMailCc(emailRequest.getCc());
-            email.get().setMailBody(emailRequest.getBody());
-            email.get().setMailEstate(emailRequest.getEstate());
+            email.get().setDate(new Date());
+            email.get().setFrom(emailRequest.getFrom());
+            email.get().setTo(emailRequest.getTo());
+            email.get().setCc(emailRequest.getCc());
+            email.get().setBody(emailRequest.getBody());
+            email.get().setState(emailRequest.getEstate());
 
             emailRepository.save(email.get());
 
@@ -74,13 +74,13 @@ public class EmailServiceImpl implements EmailService {
 
         Optional<Email> email = emailRepository.findById(emailId);
 
-        if (email.isEmpty() || email.get().getMailEstate().equals(Estate.DELETED)){
+        if (email.isEmpty() || email.get().getState().equals(State.DELETED)){
 
             throw new ResourceNotFoundException("Email", "id", emailId);
 
         } else {
 
-            email.get().setMailEstate(Estate.DELETED);
+            email.get().setState(State.DELETED);
 
             emailRepository.save(email.get());
         }

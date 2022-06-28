@@ -2,31 +2,31 @@ package com.gbtech.mail.data.models;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
+@Table(name = "mail")
 public class Email {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Date mailDate;
-    private String mailFrom;
-    @ElementCollection
-    @CollectionTable(name="to_email", joinColumns=@JoinColumn(name="email_id"))
-    @Column(name="email")
-    private List<String> mailTo = new ArrayList<>();
-    @ElementCollection
-    @CollectionTable(name="cc_email", joinColumns=@JoinColumn(name="email_id"))
-    @Column(name="email")
-    private List<String> mailCc = new ArrayList<>();
-    private String mailBody;
+    @Column(name = "mail_date")
+    private Date date;
+    @Column(name = "mail_from")
+    private String from;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "mail_id")
+    private List<EmailTo> to;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "mail_id")
+    private List<EmailCc> cc;
+    @Column(name = "mail_body")
+    private String body;
 
-    @Enumerated(EnumType.STRING)
-    private Estate mailEstate;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "mail_state")
+    private State state;
 
     public Email() {}
 
@@ -38,52 +38,68 @@ public class Email {
         this.id = id;
     }
 
-    public Date getMailDate() {
-        return mailDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setMailDate(Date mailDate) {
-        this.mailDate = mailDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public String getMailFrom() {
-        return mailFrom;
+    public String getFrom() {
+        return from;
     }
 
-    public void setMailFrom(String mailFrom) {
-        this.mailFrom = mailFrom;
+    public void setFrom(String from) {
+        this.from = from;
     }
 
-    public List<String> getMailTo() {
-        return mailTo;
+    public List<EmailTo> getTo() {
+        return to;
     }
 
-    public void setMailTo(List<String> mailTo) {
-        this.mailTo = mailTo;
+    public void setTo(List<EmailTo> to) {
+
+        if (this.to != null && to != null){
+            this.to.clear();
+            this.to.addAll(to);
+        }
+
+        if (this.to == null) {
+            this.to = to;
+        }
     }
 
-    public List<String> getMailCc() {
-        return mailCc;
+    public List<EmailCc> getCc() {
+        return cc;
     }
 
-    public void setMailCc(List<String> mailCc) {
-        this.mailCc = mailCc;
+    public void setCc(List<EmailCc> cc) {
+
+        if (this.cc != null && cc != null){
+            this.cc.clear();
+            this.cc.addAll(cc);
+        }
+
+        if (this.cc == null) {
+            this.cc = cc;
+        }
     }
 
-    public String getMailBody() {
-        return mailBody;
+    public String getBody() {
+        return body;
     }
 
-    public void setMailBody(String mailBody) {
-        this.mailBody = mailBody;
+    public void setBody(String body) {
+        this.body = body;
     }
 
-    public Estate getMailEstate() {
-        return mailEstate;
+    public State getState() {
+        return state;
     }
 
-    public void setMailEstate(Estate mailEstate) {
-        this.mailEstate = mailEstate;
+    public void setState(State state) {
+        this.state = state;
     }
 
     @Override
@@ -93,12 +109,12 @@ public class Email {
 
         return "Email{" +
                 "id=" + id +
-                ", date='" + formatter.format(mailDate) + '\'' +
-                ", from='" + mailFrom + '\'' +
-                ", to=" + mailTo +
-                ", cc=" + mailCc +
-                ", body='" + mailBody + '\'' +
-                ", estate=" + mailEstate +
+                ", date='" + formatter.format(date) + '\'' +
+                ", from='" + from + '\'' +
+                ", to=" + to.toString() +
+                ", cc=" + cc.toString() +
+                ", body='" + body + '\'' +
+                ", state=" + state +
                 '}';
     }
 
@@ -107,11 +123,11 @@ public class Email {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Email email = (Email) o;
-        return Objects.equals(id, email.id) && Objects.equals(mailFrom, email.mailFrom) && Objects.equals(mailTo, email.mailTo) && Objects.equals(mailCc, email.mailCc) && Objects.equals(mailBody, email.mailBody) && mailEstate == email.mailEstate;
+        return Objects.equals(id, email.id) && Objects.equals(from, email.from) && Objects.equals(to, email.to) && Objects.equals(cc, email.cc) && Objects.equals(body, email.body) && state == email.state;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, mailFrom, mailTo, mailCc, mailBody, mailEstate);
+        return Objects.hash(id, from, to, cc, body, state);
     }
 }

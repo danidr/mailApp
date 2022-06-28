@@ -1,6 +1,6 @@
 package com.gbtech.mail.data.models;
 
-public enum Estate {
+public enum State {
     DRAFT,
     SENT,
     DELETED,

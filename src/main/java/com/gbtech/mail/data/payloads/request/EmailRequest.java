@@ -1,6 +1,8 @@
 package com.gbtech.mail.data.payloads.request;
 
-import com.gbtech.mail.data.models.Estate;
+import com.gbtech.mail.data.models.EmailCc;
+import com.gbtech.mail.data.models.EmailTo;
+import com.gbtech.mail.data.models.State;
 
 import java.util.Date;
 import java.util.List;
@@ -23,9 +25,9 @@ public class EmailRequest {
 
     @NotBlank
     @NotNull
-    private List<String> to;
+    private List<EmailTo> to;
 
-    private List<String> cc;
+    private List<EmailCc> cc;
 
     @NotBlank
     @NotNull
@@ -34,7 +36,7 @@ public class EmailRequest {
     @NotBlank
     @NotNull
     @Enumerated(EnumType.STRING)
-    private Estate estate;
+    private State state;
 
     public Date getDate() {
         return date;
@@ -52,19 +54,19 @@ public class EmailRequest {
         this.from = from;
     }
 
-    public List<String> getTo() {
+    public List<EmailTo> getTo() {
         return to;
     }
 
-    public void setTo(List<String> to) {
+    public void setTo(List<EmailTo> to) {
         this.to = to;
     }
 
-    public List<String> getCc() {
+    public List<EmailCc> getCc() {
         return cc;
     }
 
-    public void setCc(List<String> cc) {
+    public void setCc(List<EmailCc> cc) {
         this.cc = cc;
     }
 
@@ -76,11 +78,11 @@ public class EmailRequest {
         this.body = body;
     }
 
-    public Estate getEstate() {
-        return estate;
+    public State getEstate() {
+        return state;
     }
 
-    public void setEstate(Estate estate) {
-        this.estate = estate;
+    public void setEstate(State state) {
+        this.state = state;
     }
 }
