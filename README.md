@@ -46,6 +46,7 @@ To RECOVER all existing e-mails:
 http://localhost:8081/email/all
 ```
 
+Example of a JSON sended to the service: 
 ```json
 {
 	"id": 1,
