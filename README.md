@@ -96,3 +96,35 @@ To DELETE an existing email (using their ID):
 ```bash
 http://localhost:8081/email/delete/{id}
 ```
+
+To FIND a existing email (using their ID):
+
+```bash
+http://localhost:8081/email/find/{id}
+```
+
+```json
+{
+	"id": 48,
+	"date": "2022-06-28T21:03:33.000+00:00",
+	"from": "carl@gbtec.com",
+	"to": [
+		{
+			"id": 52,
+			"mail": "prueba@gbtech.com"
+			},
+			  {
+			"id": 54,
+			"mail": "prueba2@gbtech.com"
+		}
+	],
+	"cc": [
+		{
+			"id": 50,
+			"mail": "nadie@gbtech.com"
+		}
+	],
+	"body": "Hola, esto es una prueba",
+	"state": "SPAM"
+}
+```
