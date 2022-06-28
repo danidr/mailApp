@@ -21,7 +21,7 @@ public class CheckSpam implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
 
-        System.out.println("Iniciando hilo para la limpieza de correos procedentes de la lista de SPAM.");
+        System.out.println("Starting thread for cleaning mails from SPAM list");
 
         Date fechaHoraActual = null;
         Date fechaHoraToFind = null;
@@ -43,21 +43,21 @@ public class CheckSpam implements ApplicationRunner {
 
                 //if (dateFormat.format(date).equals("22:51")) {
                 if (fechaHoraActual.before(fechaHoraToFind)) {
-                    System.out.println("Buscando correos SPAM procedentes de la direccion: " + mailSpam);
+                    System.out.println("Finding SPAM emails from: " + mailSpam);
 
                     resultado = emailService.setEmailAsSpam(mailSpam);
 
                     if (resultado > 0){
-                        System.out.println("Marcados " + resultado + " correos como SPAM, procedentes de: " + mailSpam);
+                        System.out.println("Marked " + resultado + " emails as SPAM, from: " + mailSpam);
                     }
                 }
 
             } while (true);
         } catch (InterruptedException exc){
-            System.out.println(mailSpam + "Interrumpido.");
+            System.out.println("Auto SPAM finder completed incorrectly.");
         }
 
-        System.out.println("Terminando " + mailSpam);
+        System.out.println("Process completed");
 
     }
 }
