@@ -27,37 +27,31 @@ public class CheckSpam implements ApplicationRunner {
         Date fechaHoraToFind = null;
         Integer resultado = 0;
 
-        try {
-            do {
-                Thread.sleep(5000);
-                fechaHoraActual = new Date();
+        do {
+            fechaHoraActual = new Date();
 
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(fechaHoraActual);
-                calendar.set(Calendar.MILLISECOND, 0);
-                calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MINUTE, 0);
-                calendar.set(Calendar.HOUR, 22);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaHoraActual);
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MINUTE, 16);
+            calendar.set(Calendar.HOUR, 00);
 
-                fechaHoraToFind = calendar.getTime();
+            fechaHoraToFind = calendar.getTime();
 
-                //if (dateFormat.format(date).equals("22:51")) {
-                if (fechaHoraActual.before(fechaHoraToFind)) {
-                    System.out.println("Finding SPAM emails from: " + mailSpam);
+            if (fechaHoraActual.equals(fechaHoraToFind)) {
+                System.out.println("Finding SPAM emails from: " + mailSpam);
 
-                    resultado = emailService.setEmailAsSpam(mailSpam);
+                resultado = emailService.setEmailAsSpam(mailSpam);
 
-                    if (resultado > 0){
-                        System.out.println("Marked " + resultado + " emails as SPAM, from: " + mailSpam);
-                    }
+                if (resultado > 0){
+                    System.out.println("Marked " + resultado + " emails as SPAM, from: " + mailSpam);
+                } else {
+                    System.out.println("No SPAM found");
                 }
+            }
 
-            } while (true);
-        } catch (InterruptedException exc){
-            System.out.println("Auto SPAM finder completed incorrectly.");
-        }
-
-        System.out.println("Process completed");
+        } while (true);
 
     }
 }
