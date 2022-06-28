@@ -60,12 +60,15 @@ public class Email {
 
     public void setTo(List<EmailTo> to) {
 
-        if (this.to != null && to != null){
+        if (this.to != null){
             this.to.clear();
-            this.to.addAll(to);
-        }
 
-        if (this.to == null) {
+            if (to != null){
+                this.to.addAll(to);
+            } else {
+                this.to.removeAll(this.to);
+            }
+        } else {
             this.to = to;
         }
     }
@@ -76,14 +79,18 @@ public class Email {
 
     public void setCc(List<EmailCc> cc) {
 
-        if (this.cc != null && cc != null){
+        if (this.cc != null){
             this.cc.clear();
-            this.cc.addAll(cc);
-        }
 
-        if (this.cc == null) {
+            if (cc != null){
+                this.cc.addAll(cc);
+            } else {
+                this.cc.removeAll(this.cc);
+            }
+        } else {
             this.cc = cc;
         }
+
     }
 
     public String getBody() {
