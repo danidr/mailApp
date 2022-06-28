@@ -34,7 +34,7 @@ public class CheckSpam implements ApplicationRunner {
             calendar.setTime(fechaHoraActual);
             calendar.set(Calendar.MILLISECOND, 0);
             calendar.set(Calendar.SECOND, 0);
-            calendar.set(Calendar.MINUTE, 00);
+            calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.HOUR, 10);
 
             fechaHoraToFind = calendar.getTime();
